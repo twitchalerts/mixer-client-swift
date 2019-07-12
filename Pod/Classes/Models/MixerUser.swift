@@ -25,8 +25,8 @@ public struct MixerUser: Codable {
         case facebook
         case youtube
         case player
+        case channel
         
-        case channelData
         case json
     }
         
