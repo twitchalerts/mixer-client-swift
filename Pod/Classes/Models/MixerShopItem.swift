@@ -15,7 +15,7 @@ public struct MixerShopItem {
     public let title: String?
     
     /// Used to initialize a shop item given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         title = json["title"].string
     }
 }

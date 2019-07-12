@@ -36,7 +36,7 @@ public struct MixerUserAchievement {
     public let achievement: MixerAchievement
     
     /// Used to initialize a user achievement object given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         id = json["id"].int ?? 0
         earned = json["earned"].bool ?? false
         progress = json["progress"].float ?? 0

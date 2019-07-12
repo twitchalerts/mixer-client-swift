@@ -33,7 +33,7 @@ public struct MixerMessageComponent {
     public var username: String?
     
     /// Used to initialize a chat message component given JSON data.
-    init(json: JSON, me: Bool) {
+    public init(json: JSON, me: Bool) {
         if let type = json["type"].string {
             switch type {
             case "emoticon":

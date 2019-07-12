@@ -24,7 +24,7 @@ public struct MixerIngest {
     public let protocols: [String]
     
     /// Used to initialize an ingest given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         name = json["name"].string
         host = json["host"].string
         pingTest = json["pingTest"].string

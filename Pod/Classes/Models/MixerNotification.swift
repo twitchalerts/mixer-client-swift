@@ -27,7 +27,7 @@ public struct MixerNotification {
     public let id: String?
     
     /// Used to initialize a notification given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         payload = json["payload"].dictionaryObject
         sentAt = Date.fromMixer(json["sentAt"].string)
         type = json["type"].string ?? "unknown"

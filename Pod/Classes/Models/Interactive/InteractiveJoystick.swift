@@ -15,7 +15,7 @@ public class InteractiveJoystick: InteractiveControl {
     public let help: String?
     
     /// Used to initialize an interactive joystick given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         help = json["help"].string
         
         let id = json["id"].int ?? 0

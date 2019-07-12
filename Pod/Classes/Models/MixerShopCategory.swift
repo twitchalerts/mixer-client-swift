@@ -24,7 +24,7 @@ public struct MixerShopCategory {
     public let color: String?
     
     /// Used to initialize a shop category given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         id = json["id"].int
         title = json["title"].string
         desc = json["description"].string

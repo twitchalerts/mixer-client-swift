@@ -54,7 +54,7 @@ public struct MixerTeam {
     public let player: String?
     
     /// Used to initialize a team object given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         id = json["id"].int ?? 0
         ownerId = json["ownerId"].int ?? 0
         token = json["token"].string ?? ""

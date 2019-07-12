@@ -36,7 +36,7 @@ public struct MixerType {
     public let online: Int
     
     /// Used to initialize a type given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         id = json["id"].int ?? 0
         name = json["name"].string ?? ""
         parent = json["parent"].string

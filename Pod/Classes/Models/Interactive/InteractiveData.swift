@@ -27,7 +27,7 @@ public struct InteractiveData {
     public let version: InteractiveVersion?
     
     /// Used to initialize an interactive data object given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         address = json["address"].string
         key = json["key"].string
         userId = json["user"].int

@@ -36,7 +36,7 @@ public struct InteractiveVersion {
     public let game: InteractiveGame?
     
     /// Used to initialize an interactive version given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         id = json["id"].int ?? 0
         gameId = json["gameId"].int ?? 0
         version = json["version"].string

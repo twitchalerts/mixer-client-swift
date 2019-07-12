@@ -36,7 +36,7 @@ public struct MixerThumbnail {
     public var size: CGSize?
     
     /// Used to initialize a thumbnail given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         if let size = json["meta"]["size"].array, let w = size[0].int, let h = size[1].int {
             let width = CGFloat(w)
             let height = CGFloat(h)

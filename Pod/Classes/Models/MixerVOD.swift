@@ -33,7 +33,7 @@ public struct MixerVOD {
         return nil
     }
     
-    init(json: JSON) {
+    public init(json: JSON) {
         id = json["id"].int ?? 0
         baseUrl = json["baseUrl"].string
         format = json["format"].string ?? "unknown"

@@ -27,7 +27,7 @@ public struct MixerEmoticonPack {
     public let emoticons: [MixerEmoticon]
     
     /// Used to initialize an emoticon given JSON data.
-    init(slug: String, json: JSON) {
+    public init(slug: String, json: JSON) {
         self.slug = slug
         
         name = json["name"].string ?? "Emoticon Pack"

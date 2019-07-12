@@ -27,7 +27,7 @@ public class InteractiveTactile: InteractiveControl {
     public let cooldown: Int?
     
     /// Used to initialize an interactive tactile given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         key = json["key"].int ?? 0
         text = json["text"].string
         help = json["help"].string

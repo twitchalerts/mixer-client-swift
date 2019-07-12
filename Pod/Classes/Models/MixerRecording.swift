@@ -23,7 +23,7 @@ public struct MixerRecording {
     public let channel: MixerChannel?
     public let vods: [MixerVOD]
     
-    init(json: JSON) {
+    public init(json: JSON) {
         id = json["id"].int ?? 0
         name = json["name"].string ?? "Untitled VoD"
         typeId = json["typeId"].int

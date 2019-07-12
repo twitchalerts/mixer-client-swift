@@ -24,7 +24,7 @@ public struct MixerAchievement {
     public let points: Int?
     
     /// Used to initialize an achievement given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         slug = json["slug"].string
         name = json["name"].string
         desc = json["description"].string

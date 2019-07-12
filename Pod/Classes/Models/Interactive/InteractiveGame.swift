@@ -30,7 +30,7 @@ public struct InteractiveGame {
     public let installation: String?
     
     /// Used to initialize an interactive game object given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         id = json["id"].int ?? 0
         ownerId = json["ownerId"].int ?? 0
         name = json["name"].string

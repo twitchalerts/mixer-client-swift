@@ -15,7 +15,7 @@ public struct InteractiveBlueprint {
     public var configurations: [InteractiveBlueprintConfiguration]
     
     /// Used to initialize a blueprint given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         self.configurations = [InteractiveBlueprintConfiguration]()
         
         if let configurations = json.array {

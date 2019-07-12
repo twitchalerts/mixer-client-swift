@@ -30,7 +30,7 @@ public struct MixerMessage {
     public private(set) var userRoles: [MixerGroup]?
     
     /// Used to initialize a chat message given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         components = [MixerMessageComponent]()
         
         if let message = json["message"].dictionary, let meta = message["meta"]?.dictionary {

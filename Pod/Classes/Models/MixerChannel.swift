@@ -144,7 +144,7 @@ public struct MixerChannel {
     }
     
     /// Used to initialize a channel given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         id = json["id"].int ?? 0
         userId = json["userId"].int ?? 0
         token = json["token"].string ?? ""

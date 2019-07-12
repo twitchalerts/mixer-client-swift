@@ -36,7 +36,7 @@ public struct MixerNotificationPreferences {
     public var transports: [[String: Any]]?
     
     /// Used to initialize a user's notification preferences given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         allowsEmailMarketing = json["allowsEmailMarketing"].bool ?? false
         health = MixerUserHealth(json: json["health"])
         id = Int(json["id"].string ?? "0") ?? 0

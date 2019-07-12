@@ -21,7 +21,7 @@ public struct MixerEmoticon {
     public let size: CGSize
     
     /// Used to initialize an emoticon given JSON data.
-    init(name: String, json: JSON) {
+    public init(name: String, json: JSON) {
         self.name = name
         
         let x = json["x"].int ?? 0

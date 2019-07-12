@@ -30,7 +30,7 @@ class SessionTests: XCTestCase {
         func genRandomString() -> String {
             let random = UUID().uuidString
             let range = random.startIndex ..< random.index(random.startIndex, offsetBy: 12)
-            let string = random.substring(with: range).lowercased()
+            let string = String(random[range]).lowercased()
             return "a" + string.replacingOccurrences(of: "-", with: "")
         }
         

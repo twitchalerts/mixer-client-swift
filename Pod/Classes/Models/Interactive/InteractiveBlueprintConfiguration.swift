@@ -24,7 +24,7 @@ public struct InteractiveBlueprintConfiguration {
     public let grid: InteractiveGrid
     
     /// Used to initialize a blueprint configuration given JSON data.
-    init(json: JSON) {
+    public init(json: JSON) {
         if let x = json["x"].int, let y = json["y"].int, let w = json["width"].int, let h = json["height"].int {
             coordinates = CGPoint(x: CGFloat(x), y: CGFloat(y))
             size = CGSize(width: CGFloat(w), height: CGFloat(h))
