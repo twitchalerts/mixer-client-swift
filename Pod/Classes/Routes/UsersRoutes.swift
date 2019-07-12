@@ -146,6 +146,23 @@ public class UsersRoutes {
     // MARK: Retrieving Users
     
     /**
+     Retrieves a current user.
+    
+     :param: completion An optional completion block with retrieved user data.
+     */
+    public func getCurrentUser(completion: ((_ user: MixerUser?, _ error: MixerRequestError?) -> Void)?) {
+        MixerRequest.request("/users/current") { (json, error) in
+            guard let json = json else {
+                completion?(nil, error)
+                return
+            }
+            
+            let user = MixerUser(json: json)
+            completion?(user, error)
+        }
+    }
+    
+    /**
      Retrieves a user with the specified identifer.
     
      :param: id The identifier of the user being retrieved.

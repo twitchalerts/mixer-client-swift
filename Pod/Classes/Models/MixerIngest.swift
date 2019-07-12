@@ -9,7 +9,13 @@
 import SwiftyJSON
 
 /// An ingest object.
-public struct MixerIngest {
+public struct MixerIngest: Codable {
+    enum CodingKeys: CodingKey {
+        case name
+        case host
+        case pingTest
+        case protocols
+    }
     
     /// The ingest's name.
     public let name: String?
@@ -21,7 +27,7 @@ public struct MixerIngest {
     public let pingTest: String?
     
     /// A list of protocols supported by this ingest server.
-    public let protocols: [String]
+    public let protocols: [MixerProtocol]?
     
     /// Used to initialize an ingest given JSON data.
     public init(json: JSON) {
@@ -29,13 +35,11 @@ public struct MixerIngest {
         host = json["host"].string
         pingTest = json["pingTest"].string
         
-        var protocols = [String]()
+        var protocols = [MixerProtocol]()
         
         if let protocolsList = json["protocols"].array {
-            for MixerProtocol in protocolsList {
-                if let protocolName = MixerProtocol["type"].string {
-                    protocols.append(protocolName)
-                }
+            for `protocol` in protocolsList {
+                protocols.append(MixerProtocol(json: `protocol`))
             }
         }
         
