@@ -7,8 +7,8 @@
 
 import SwiftyJSON
 
-class MixerExpandedChannel: MixerChannel {
-	var streamKey: String?
+public class MixerExpandedChannel: MixerChannel {
+	public var streamKey: String?
 	
 	public override init(json: JSON) {
 		self.streamKey = json["streamKey"].string
