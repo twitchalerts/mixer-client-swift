@@ -51,7 +51,7 @@ public class MixerRequest {
                 return
             }
             
-            let json = JSON(data: data)
+            let json = try? JSON(data: data)
             completion?(json, error)
         }
     }
@@ -175,7 +175,7 @@ public class MixerRequest {
                 }
             }
             
-            let json = JSON(data: data)
+            let json = try? JSON(data: data)
             var requestError: MixerRequestError = .unknown(data: json)
             
             if let error = error {
@@ -193,7 +193,11 @@ public class MixerRequest {
                     let component = url.lastPathComponent
                     
                     if requestType == "POST" && component == "users" {
-                        if let name = json["name"].string, let details = json["details"].array?[0], let path = details["path"].string, let type = details["type"].string , name == "ValidationError" {
+                        if let name = json?["name"].string,
+                           let details = json?["details"].array?[0],
+                           let path = details["path"].string,
+                           let type = details["type"].string,
+                           name == "ValidationError" {
                             switch path {
                             case "payload.email":
                                 switch type {
@@ -221,7 +225,7 @@ public class MixerRequest {
                         }
                     }
                 case 401:
-                    if json["message"] == "Invalid token" {
+                    if json?["message"] == "Invalid token" {
                         requestingJWT = true
                         
                         if MixerUserDefaults.standard.object(forKey: "Cookies") != nil {

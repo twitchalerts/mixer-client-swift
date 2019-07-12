@@ -10,7 +10,7 @@ import Starscream
 import SwiftyJSON
 
 /// Used to connect to and communicate with a Mixer chat server. There is no shared session, meaning several chat connections can be made at once.
-public class ChatClient: WebSocketDelegate {
+public class ChatClient: WebSocketAdvancedDelegate {
     
     // MARK: Properties
     
@@ -56,7 +56,7 @@ public class ChatClient: WebSocketDelegate {
             
             if let url = URL(string: endpoints[0]) {
                 self.socket = WebSocket(url: url, protocols: ["chat", "http-only"])
-                self.socket?.delegate = self
+                self.socket?.advancedDelegate = self
                 self.socket?.connect()
             }
         }
@@ -101,10 +101,9 @@ public class ChatClient: WebSocketDelegate {
         sendPacket(packet)
     }
     
-    public func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
-    }
+    public func websocketDidDisconnect(socket: WebSocket, error: Error?) {}
     
-    public func websocketDidReceiveMessage(socket: WebSocket, text: String) {
+    public func websocketDidReceiveMessage(socket: WebSocket, text: String, response: WebSocket.WSResponse) {
         guard let data = text.data(using: String.Encoding.utf8, allowLossyConversion: false) else {
             print("unknown error parsing chat packet")
             return
@@ -121,8 +120,11 @@ public class ChatClient: WebSocketDelegate {
         } catch { }
     }
     
-    public func websocketDidReceiveData(socket: WebSocket, data: Data) {
-    }
+    public func websocketDidReceiveData(socket: WebSocket, data: Data, response: WebSocket.WSResponse) {}
+    
+    public func websocketHttpUpgrade(socket: WebSocket, request: String) {}
+    
+    public func websocketHttpUpgrade(socket: WebSocket, response: String) {}
 }
 
 /// The chat client's delegate, through which information is relayed to your app.

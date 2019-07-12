@@ -17,7 +17,7 @@ public extension Date {
      :param: dateString The raw string containing the data data.
      :returns: The NSDate object.
      */
-    public static func fromMixer(_ dateString: String?) -> Date? {
+    static func fromMixer(_ dateString: String?) -> Date? {
         guard let string = dateString else {
             return nil
         }

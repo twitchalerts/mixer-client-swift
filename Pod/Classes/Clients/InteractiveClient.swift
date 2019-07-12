@@ -10,7 +10,7 @@ import Starscream
 import SwiftyJSON
 
 /// Used to connect to a channel's interactive controls through our interactive protocol.
-public class InteractiveClient: WebSocketDelegate {
+public class InteractiveClient: WebSocketAdvancedDelegate {
     
     // MARK: Properties
     
@@ -57,7 +57,7 @@ public class InteractiveClient: WebSocketDelegate {
         }
         
         socket = WebSocket(url: url, protocols: ["chat", "http-only"])
-        socket?.delegate = self
+        socket?.advancedDelegate = self
         socket?.connect()
     }
     
@@ -90,7 +90,7 @@ public class InteractiveClient: WebSocketDelegate {
         }
     }
     
-    // MARK: WebSocketDelegate
+    // MARK: WebSocketAdvancedDelegate
     
     public func websocketDidConnect(socket: WebSocket) {
         delegate?.interactiveDidConnect()
@@ -107,11 +107,11 @@ public class InteractiveClient: WebSocketDelegate {
         sendPacket(packet)
     }
     
-    public func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
+    public func websocketDidDisconnect(socket: WebSocket, error: Error?) {
         delegate?.interactiveDidDisconnect()
     }
     
-    public func websocketDidReceiveMessage(socket: WebSocket, text: String) {
+    public func websocketDidReceiveMessage(socket: WebSocket, text: String, response: WebSocket.WSResponse) {
         if let (packet, state) = InteractivePacket.receivePacket(text) {
             if let packet = packet {
                 delegate?.interactiveReceivedPacket(packet)
@@ -123,8 +123,11 @@ public class InteractiveClient: WebSocketDelegate {
         }
     }
     
-    public func websocketDidReceiveData(socket: WebSocket, data: Data) {
-    }
+    public func websocketDidReceiveData(socket: WebSocket, data: Data, response: WebSocket.WSResponse) {}
+    
+    public func websocketHttpUpgrade(socket: WebSocket, request: String) {}
+    
+    public func websocketHttpUpgrade(socket: WebSocket, response: String) {}
 }
 
 /// The interactive client's delegate, through which information is relayed to your app.

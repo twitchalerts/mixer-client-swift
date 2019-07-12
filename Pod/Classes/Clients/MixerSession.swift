@@ -14,8 +14,9 @@ public class MixerSession {
     /// The session's shared instance. This will be nil if nobody is authenticated.
     public static var sharedSession: MixerSession? {
         get {
-            if let userData = MixerUserDefaults.standard.data(forKey: "UserData") {
-                return MixerSession(user: MixerUser.decode(data: userData))
+            if let userData = MixerUserDefaults.standard.data(forKey: "UserData"),
+                    let user = try? MixerUser.decode(data: userData) {
+                return MixerSession(user: user)
             }
             
             return nil

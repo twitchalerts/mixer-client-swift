@@ -12,7 +12,7 @@ import SwiftyJSON
 public struct MixerMessage {
     
     /// The components that make up the chat message.
-    public let components: [MixerMessageComponent]!
+    public private(set) var components: [MixerMessageComponent]!
     
     /// The id of the channel that the message was sent to.
     public let channel: Int?
@@ -27,7 +27,7 @@ public struct MixerMessage {
     public let userName: String?
     
     /// The roles held by the user who sent the message.
-    public let userRoles: [MixerGroup]?
+    public private(set) var userRoles: [MixerGroup]?
     
     /// Used to initialize a chat message given JSON data.
     init(json: JSON) {

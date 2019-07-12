@@ -10,7 +10,7 @@ import Starscream
 import SwiftyJSON
 
 /// Used to connect to and communicate with Mixer's liveloading socket.
-public class ConstellationClient: WebSocketDelegate {
+public class ConstellationClient: WebSocketAdvancedDelegate {
     
     // MARK: Properties
     
@@ -36,10 +36,13 @@ public class ConstellationClient: WebSocketDelegate {
     /// Makes a connection to constellation through a websocket.
     public func connect(_ delegate: ConstellationClientDelegate) {
         self.delegate = delegate
+    
+        var request = URLRequest(url: URL(string: "wss://constellation.mixer.com")!)
+        request.timeoutInterval = 5
+        request.setValue("IOSApp/\(MixerRequest.version) (iOS; \(MixerRequest.deviceName()))", forHTTPHeaderField: "User-Agent")
         
-        socket = WebSocket(url: URL(string: "wss://constellation.mixer.com")!)
-        socket?.delegate = self
-        socket?.headers["User-Agent"] = "IOSApp/\(MixerRequest.version) (iOS; \(MixerRequest.deviceName()))"
+        socket = WebSocket(request: request)
+        socket?.advancedDelegate = self
         socket?.connect()
     }
     
@@ -98,17 +101,17 @@ public class ConstellationClient: WebSocketDelegate {
         events = [ConstellationEvent]()
     }
     
-    // MARK: WebSocketDelegate Methods
+    // MARK: WebSocketAdvancedDelegate Methods
     
     public func websocketDidConnect(socket: WebSocket) {
         delegate?.constellationDidConnect()
     }
     
-    public func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
+    public func websocketDidDisconnect(socket: WebSocket, error: Error?) {
         delegate?.constellationDidDisconnect(error)
     }
     
-    public func websocketDidReceiveMessage(socket: WebSocket, text: String) {
+    public func websocketDidReceiveMessage(socket: WebSocket, text: String, response: WebSocket.WSResponse) {
         guard let data = text.data(using: String.Encoding.utf8, allowLossyConversion: false) else {
             print("unknown error parsing constellation packet: \(text)")
             return
@@ -127,8 +130,11 @@ public class ConstellationClient: WebSocketDelegate {
         }
     }
     
-    public func websocketDidReceiveData(socket: WebSocket, data: Data) {
-    }
+    public func websocketDidReceiveData(socket: WebSocket, data: Data, response: WebSocket.WSResponse) {}
+    
+    public func websocketHttpUpgrade(socket: WebSocket, request: String) {}
+    
+    public func websocketHttpUpgrade(socket: WebSocket, response: String) {}
 }
 
 /// The constellation client's delegate, through which information is relayed to the app.
@@ -138,7 +144,7 @@ public protocol ConstellationClientDelegate: class {
     func constellationDidConnect()
     
     /// Called when the websocket disconnects, whether on purpose or unexpectedly.
-    func constellationDidDisconnect(_ error: NSError?)
+    func constellationDidDisconnect(_ error: Error?)
     
     /// Called when a packet has been received and interpreted.
     func constellationReceivedPacket(_ packet: ConstellationPacket)

@@ -26,7 +26,7 @@ class ConstellationClientTests: XCTestCase, ConstellationClientDelegate {
         connectExpectation.fulfill()
     }
     
-    func constellationDidDisconnect(_ error: NSError?) {
+    func constellationDidDisconnect(_ error: Error?) {
         XCTFail()
     }
     

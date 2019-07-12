@@ -73,7 +73,9 @@ public class InteractivePacket {
             return nil
         }
         
-        let data = JSON(data: actualData)
+        guard let data = try? JSON(data: actualData) else {
+            return (nil, nil)
+        }
         
         switch event {
         case "hack": // 1

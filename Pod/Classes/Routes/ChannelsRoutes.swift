@@ -341,7 +341,7 @@ public class ChannelsRoutes {
      */
     public func getDefaultEmoticons(_ completion: ((_ packs: [MixerEmoticonPack]?, _ error: MixerRequestError?) -> Void)?) {
         MixerRequest.dataRequest("https://mixer.com/_latest/emoticons/manifest.json") { (data, error) in
-            guard let data = data, let packs = JSON(data: data).dictionary else {
+            guard let data = data, let json = try? JSON(data: data).dictionary, let packs = json else {
                 completion?(nil, error)
                 return
             }

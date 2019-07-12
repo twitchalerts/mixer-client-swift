@@ -39,10 +39,10 @@ public struct MixerUser {
     public let bio: String?
     
     /// The groups held by the user.
-    public let groups: [MixerGroup]?
+    public private(set) var groups: [MixerGroup]?
     
     /// The user's preferences. Only retrieved if this is the authenticated user's object.
-    public let preferences: [String: Any]?
+    public private(set) var preferences: [String: Any]?
     
     /// The user's Twitter profile URL.
     public let twitter: String?
@@ -123,8 +123,8 @@ public struct MixerUser {
         }
     }
     
-    public static func decode(data: Data) -> MixerUser {
-        let json = JSON(data: data)
+    public static func decode(data: Data) throws -> MixerUser {
+        let json = try JSON(data: data)
         return MixerUser(json: json)
     }
 }

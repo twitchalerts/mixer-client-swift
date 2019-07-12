@@ -14,7 +14,7 @@ public class MixerUserDefaults: UserDefaults {
     fileprivate static var userDefaults: UserDefaults?
     
     /// The client's shared instance.
-    override static open var standard: UserDefaults {
+    override static public var standard: UserDefaults {
         return userDefaults ?? super.standard
     }
     
