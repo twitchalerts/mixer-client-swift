@@ -9,7 +9,7 @@
 import UIKit
 
 /// The group/role held by a given user.
-public enum MixerGroup: String {
+public enum MixerGroup: String, Codable {
     case founder = "Founder"
     case staff = "Staff"
     case globalMod = "GlobalMod"

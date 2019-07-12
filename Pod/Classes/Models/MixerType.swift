@@ -9,7 +9,17 @@
 import SwiftyJSON
 
 /// The object of a game being played by a channel.
-public struct MixerType {
+public struct MixerType: Codable {
+    enum CodingKeys: CodingKey {
+        case id
+        case name
+        case parent
+        case desc
+        case source
+        case viewersCurrent
+        case coverURL
+        case online
+    }
     
     /// The type's identifier.
     public let id: Int

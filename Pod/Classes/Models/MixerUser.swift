@@ -9,31 +9,50 @@
 import SwiftyJSON
 
 /// A user object.
-public struct MixerUser {
-    
-    /// The user's identifier.
+public struct MixerUser: Codable {
+    enum CodingKeys: CodingKey {
+        case id
+        case username
+        case email
+        case verified
+        case experience
+        case level
+        case sparks
+        case avatarUrl
+        case bio
+        case groups
+        case twitter
+        case facebook
+        case youtube
+        case player
+        
+        case channelData
+        case json
+    }
+        
+        /// The user's identifier.
     public let id: Int
     
     /// The user's username.
-    public let username: String
+    public let username: String?
     
     /// The user's email address. Only returned if this is the authenticated user's object.
     public let email: String?
     
     /// True if the user has verified their email address.
-    public let verified: Bool
+    public let verified: Bool?
     
     /// The number of experience points earned by the user.
-    public let experience: Int
+    public let experience: Int?
     
     /// The user's spark level.
     public let level: Int
     
     /// The number of sparks that the user has.
-    public let sparks: Int
+    public let sparks: Int?
     
     /// A url of the user's avatar.
-    public let avatarUrl: String
+    public let avatarUrl: String?
     
     /// A biography written by the user.
     public let bio: String?
@@ -42,7 +61,8 @@ public struct MixerUser {
     public private(set) var groups: [MixerGroup]?
     
     /// The user's preferences. Only retrieved if this is the authenticated user's object.
-    public private(set) var preferences: [String: Any]?
+    // TODO: Implement as a separate object
+//    public private(set) var preferences: [String: AnyHashable]?
     
     /// The user's Twitter profile URL.
     public let twitter: String?
@@ -57,15 +77,17 @@ public struct MixerUser {
     public let player: String?
     
     /// Stored as JSON to avoid using a recursive value type.
-    fileprivate let channelData: JSON
+    fileprivate var channelData: JSON?
     
     /// The user's associated channel object.
     public var channel: MixerChannel? {
+        guard let channelData = channelData else { return nil }
+        
         return channelData.dictionary == nil ? nil : MixerChannel(json: channelData)
     }
     
     /// A JSON representation of this user.
-    fileprivate let json: JSON
+    fileprivate var json: JSON?
     
     /// Used to initialize a user object given JSON data.
     public init(json: JSON) {
@@ -92,12 +114,14 @@ public struct MixerUser {
             }
         }
         
+        /*
         preferences = [String: AnyObject]()
         if let preferences = json["preferences"].dictionaryObject {
             for (key, val) in preferences {
                 self.preferences?[key] = val as AnyObject
             }
         }
+        */
         
         if let social = json["social"].dictionary {
             twitter = social["twitter"]?.string
@@ -117,7 +141,7 @@ public struct MixerUser {
     
     public var encoded: Data? {
         do {
-            return try json.rawData()
+            return try json?.rawData()
         } catch {
             return nil
         }

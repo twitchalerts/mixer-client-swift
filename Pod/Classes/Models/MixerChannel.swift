@@ -9,7 +9,43 @@
 import SwiftyJSON
 
 /// A channel object.
-public class MixerChannel {
+public class MixerChannel: Codable {
+    enum CodingKeys: CodingKey {
+        case id
+        case userId
+        case token
+        case online
+        case featured
+        case partnered
+        case transcodingEnabled
+        case suspended
+        case name
+        case audience
+        case viewersTotal
+        case viewersCurrent
+        case followers
+        case desc
+        case typeId
+        case interactive
+        case interactiveGameId
+        case ftl
+        case hasVod
+        case createdAt
+        case updatedAt
+        case subscribers
+        case thumbnail
+        case type
+        case shareText
+        case costreamAllow
+        case linksClickable
+        case linksAllowed
+        case slowChat
+        case followMessage
+        case subscribeMessage
+        case submail
+        case user
+        case status
+    }
     
     /// The channel's identifier.
     public let id: Int
