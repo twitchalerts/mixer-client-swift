@@ -47,8 +47,8 @@ public class InteractivePacket {
             }
         }
         
-        if dataString.characters.count > 0 {
-            dataString = dataString.substring(to: dataString.characters.index(before: dataString.endIndex))
+        if dataString.count > 0 {
+            dataString = dataString.substring(to: dataString.index(before: dataString.endIndex))
             
             let packetString = "\(method){\(dataString)}"
             return packetString
