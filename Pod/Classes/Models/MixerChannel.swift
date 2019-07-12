@@ -54,37 +54,37 @@ public class MixerChannel: Codable {
     public let userId: Int
     
     /// The channel's token/username.
-    public let token: String
+    public let token: String?
     
     /// True if the channel is online.
-    public let online: Bool
+    public let online: Bool?
     
     /// True if the channel is featured by Mixer.
-    public let featured: Bool
+    public let featured: Bool?
     
     /// True if the channel is partnered with Mixer.
-    public let partnered: Bool
+    public let partnered: Bool?
     
     /// True if the channel has transcoding enabled.
-    public let transcodingEnabled: Bool
+    public let transcodingEnabled: Bool?
     
     /// True if the channel is suspended.
-    public let suspended: Bool
+    public let suspended: Bool?
     
     /// The name of the channel's stream.
-    public let name: String
+    public let name: String?
     
     /// A short description of the recommended audience (e.g. teen)
-    public let audience: String
+    public let audience: String?
     
     /// The total number of viewers the channel has ever had.
-    public let viewersTotal: Int
+    public let viewersTotal: Int?
     
     /// The current number of viewers watching the channel.
-    public let viewersCurrent: Int
+    public let viewersCurrent: Int?
     
     /// The channel's number of followers.
-    public let followers: Int
+    public let followers: Int?
     
     /// A description filled out by the channel owner.
     public let desc: String?
@@ -93,16 +93,16 @@ public class MixerChannel: Codable {
     public let typeId: Int?
     
     /// True if the channel's content is interactive.
-    public let interactive: Bool
+    public let interactive: Bool?
     
     /// The id of the interactive game being used by the channel.
     public let interactiveGameId: Int?
     
     /// FTL is enabled if this value is > 0.
-    public let ftl: Int
+    public let ftl: Int?
     
     /// True if the channel has a stored video on demand.
-    public let hasVod: Bool
+    public let hasVod: Bool?
     
     /// The date, in UTC, on which the channel was created.
     public let createdAt: Date?
