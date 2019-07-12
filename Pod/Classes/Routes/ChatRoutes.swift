@@ -125,14 +125,14 @@ public class ChatRoutes {
                 if let username = user["userName"].string,
                     let roles = user["userRoles"].array,
                     let userId = user["userId"].int {
-                        var retrievedRoles = [MixerGroup]()
+                        var retrievedRoles = [MixerGroup.GroupType]()
                         
                         for role in roles {
                             if let role = role.string {
-                                if let retrievedRole = MixerGroup(rawValue: role) {
+                                if let retrievedRole = MixerGroup.GroupType(rawValue: role) {
                                     retrievedRoles.append(retrievedRole)
                                 } else {
-                                    retrievedRoles.append(MixerGroup.user)
+                                    retrievedRoles.append(MixerGroup.GroupType.user)
                                 }
                             }
                         }
@@ -229,7 +229,7 @@ public struct ChannelViewer {
     public var username: String
     
     /// The roles held by the viewer.
-    public var roles: [MixerGroup]
+    public var roles: [MixerGroup.GroupType]
     
     /// The identifier of the viewer.
     public var userId: Int

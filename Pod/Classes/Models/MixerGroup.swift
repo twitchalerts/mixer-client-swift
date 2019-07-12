@@ -9,32 +9,53 @@
 import UIKit
 
 /// The group/role held by a given user.
-public enum MixerGroup: String, Codable {
-    case founder = "Founder"
-    case staff = "Staff"
-    case globalMod = "GlobalMod"
-    case owner = "Owner"
-    case moderator = "Mod"
-    case pro = "Pro"
-    case user = "User"
+public struct MixerGroup: Codable {
+    public enum GroupType: String, Codable {
+        case founder = "Founder"
+        case staff = "Staff"
+        case globalMod = "GlobalMod"
+        case owner = "Owner"
+        case moderator = "Mod"
+        case pro = "Pro"
+        case user = "User"
     
-    public func getValue() -> Int {
-        switch self {
-        case .founder:
-            return 6
-        case .staff:
-            return 5
-        case .globalMod:
-            return 4
-        case .owner:
-            return 3
-        case .moderator:
-            return 2
-        case .pro:
-            return 1
-        case .user:
-            return 0
+        public func getValue() -> Int {
+            switch self {
+            case .founder:
+                return 6
+            case .staff:
+                return 5
+            case .globalMod:
+                return 4
+            case .owner:
+                return 3
+            case .moderator:
+                return 2
+            case .pro:
+                return 1
+            case .user:
+                return 0
+            }
         }
+    }
+    
+    public let id: Int?
+    
+    public let type: GroupType?
+    
+    public init?(rawValue: String?) {
+        self.id = nil
+        
+        if let type = MixerGroup.GroupType(rawValue: rawValue ?? "") {
+            self.type = type
+        } else {
+            return nil
+        }
+    }
+    
+    public init(id: Int?, type: GroupType?) {
+        self.id = id
+        self.type = type
     }
 }
 
@@ -46,7 +67,7 @@ public enum MixerGroup: String, Codable {
  :param: groups The user's held groups.
  :returns: The color that should be given to the user.
  */
-public func chatColorForGroups(_ groups: [MixerGroup]) -> UIColor {
+public func chatColorForGroups(_ groups: [MixerGroup.GroupType]) -> UIColor {
     if groups.contains(.owner) {
         return UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     }
@@ -80,8 +101,8 @@ public func chatColorForGroups(_ groups: [MixerGroup]) -> UIColor {
  :param: groups The user's held groups.
  :returns: The highest group held by the user.
  */
-public func getHighestGroup(_ groups: [MixerGroup]) -> MixerGroup {
-    var highestGroup = MixerGroup.user
+public func getHighestGroup(_ groups: [MixerGroup.GroupType]) -> MixerGroup.GroupType {
+    var highestGroup = MixerGroup.GroupType.user
     for group in groups {
         if group.getValue() > highestGroup.getValue() {
             highestGroup = group

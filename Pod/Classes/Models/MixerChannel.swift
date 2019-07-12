@@ -161,13 +161,13 @@ public class MixerChannel: Codable {
     }
     
     /// The roles that the authenticated user has in the channel.
-    public var roles: [MixerGroup]? {
+    public var roles: [MixerGroup.GroupType]? {
         get {
             if let roles = status?["roles"], let rolesArray = roles.array {
-                var retrievedRoles = [MixerGroup]()
+                var retrievedRoles = [MixerGroup.GroupType]()
                 
                 for role in rolesArray {
-                    if let roleString = role.string, let group = MixerGroup(rawValue: roleString) {
+                    if let roleString = role.string, let group = MixerGroup.GroupType(rawValue: roleString) {
                         retrievedRoles.append(group)
                     }
                 }

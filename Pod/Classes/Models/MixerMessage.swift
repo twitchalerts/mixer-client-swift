@@ -61,7 +61,7 @@ public struct MixerMessage {
                     if let user_role = MixerGroup(rawValue: roleString) {
                         userRoles!.append(user_role)
                     } else {
-                        userRoles!.append(MixerGroup.user)
+                        userRoles!.append(MixerGroup(id: nil, type: .user))
                     }
                 }
             }
