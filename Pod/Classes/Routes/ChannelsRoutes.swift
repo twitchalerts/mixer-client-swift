@@ -175,11 +175,11 @@ public class ChannelsRoutes {
         }
     }
     
-    public func getChannelDetailsWithId(_ id: Int, completion: ((_ channel: MixerChannel?, _ error: MixerRequestError?) -> Void)?) {
+    public func getChannelDetailsWithId(_ id: Int, completion: ((_ channel: MixerExpandedChannel?, _ error: MixerRequestError?) -> Void)?) {
         getChannelDetails(endpoint: "/channels/\(id)/details", completion: completion)
     }
     
-    public func getChannelDetailsToken(_ token: String, completion: ((_ channel: MixerChannel?, _ error: MixerRequestError?) -> Void)?) {
+    public func getChannelDetailsToken(_ token: String, completion: ((_ channel: MixerExpandedChannel?, _ error: MixerRequestError?) -> Void)?) {
         getChannelDetails(endpoint: "/channels/\(token)/details", completion: completion)
     }
     
