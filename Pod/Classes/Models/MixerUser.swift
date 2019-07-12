@@ -76,15 +76,8 @@ public struct MixerUser: Codable {
     /// The user's player.me profile URL.
     public let player: String?
     
-    /// Stored as JSON to avoid using a recursive value type.
-    fileprivate var channelData: JSON?
-    
     /// The user's associated channel object.
-    public var channel: MixerChannel? {
-        guard let channelData = channelData else { return nil }
-        
-        return channelData.dictionary == nil ? nil : MixerChannel(json: channelData)
-    }
+    public var channel: MixerChannel?
     
     /// A JSON representation of this user.
     fileprivate var json: JSON?
@@ -134,8 +127,12 @@ public struct MixerUser: Codable {
             youtube = nil
             player = nil
         }
-        
-        channelData = json["channel"]
+    
+        let channelData = json["channel"]
+        if channelData.exists() {
+            self.channel = MixerChannel(json: channelData)
+        }
+    
         self.json = json
     }
     
