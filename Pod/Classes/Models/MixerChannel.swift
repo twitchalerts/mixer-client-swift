@@ -9,7 +9,7 @@
 import SwiftyJSON
 
 /// A channel object.
-public struct MixerChannel {
+public class MixerChannel {
     
     /// The channel's identifier.
     public let id: Int

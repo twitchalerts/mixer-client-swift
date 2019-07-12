@@ -175,6 +175,26 @@ public class ChannelsRoutes {
         }
     }
     
+    public func getChannelDetailsWithId(_ id: Int, completion: ((_ channel: MixerChannel?, _ error: MixerRequestError?) -> Void)?) {
+        getChannelDetails(endpoint: "/channels/\(id)/details", completion: completion)
+    }
+    
+    public func getChannelDetailsToken(_ token: String, completion: ((_ channel: MixerChannel?, _ error: MixerRequestError?) -> Void)?) {
+        getChannelDetails(endpoint: "/channels/\(token)/details", completion: completion)
+    }
+    
+    fileprivate func getChannelDetails(endpoint: String, completion: ((_ channel: MixerExpandedChannel?, _ error: MixerRequestError?) -> Void)?) {
+        MixerRequest.request(endpoint) { (json, error) in
+            guard let json = json else {
+                completion?(nil, error)
+                return
+            }
+            
+            let channel = MixerExpandedChannel(json: json)
+            completion?(channel, error)
+        }
+    }
+    
     /**
      Retrieves channels to be browsed with default parameters and pagination.
      
