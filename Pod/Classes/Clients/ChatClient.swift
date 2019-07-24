@@ -15,7 +15,7 @@ public class ChatClient: WebSocketAdvancedDelegate {
     // MARK: Properties
     
     /// The client's delegate, through which updates and chat messages are relayed to your app.
-    fileprivate weak var delegate: ChatClientDelegate?
+    public weak var delegate: ChatClientDelegate?
     
     /// The stored authentication key. Will only be generated if MixerSession.sharedSession != nil, and is needed to send chat messages.
     fileprivate var authKey: String?
@@ -30,7 +30,7 @@ public class ChatClient: WebSocketAdvancedDelegate {
     fileprivate var socket: WebSocket?
     
     /// Initializes a chat connection, which needs to be stored by your own class.
-    public init(delegate chatDelegate: ChatClientDelegate) {
+    public init(delegate chatDelegate: ChatClientDelegate? = nil) {
         delegate = chatDelegate
     }
     
