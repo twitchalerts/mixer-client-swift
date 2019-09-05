@@ -27,5 +27,7 @@ class ChatClientTests: XCTestCase, ChatClientDelegate {
         expectation.fulfill()
     }
     
+    func chatDidDisconnect(_ error: Error?) {}
+    
     func chatReceivedPacket(_ packet: ChatPacket) {}
 }

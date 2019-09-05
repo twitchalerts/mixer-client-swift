@@ -101,7 +101,9 @@ public class ChatClient: WebSocketAdvancedDelegate {
         sendPacket(packet)
     }
     
-    public func websocketDidDisconnect(socket: WebSocket, error: Error?) {}
+    public func websocketDidDisconnect(socket: WebSocket, error: Error?) {
+        self.delegate?.chatDidDisconnect(error)
+    }
     
     public func websocketDidReceiveMessage(socket: WebSocket, text: String, response: WebSocket.WSResponse) {
         guard let data = text.data(using: String.Encoding.utf8, allowLossyConversion: false) else {
@@ -132,6 +134,9 @@ public protocol ChatClientDelegate: class {
     
     /// Called when a connection is made to the chat server.
     func chatDidConnect()
+    
+    /// Called when a disconnection is made from the chat server.
+    func chatDidDisconnect(_ error: Error?)
     
     /// Called when a packet is received and interpreted.
     func chatReceivedPacket(_ packet: ChatPacket)
