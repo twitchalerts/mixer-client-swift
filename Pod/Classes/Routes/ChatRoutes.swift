@@ -57,10 +57,11 @@ public class ChatRoutes {
      :param: channelId The id of the channel being connected to.
      :param: completion An optional completion block with retrieved chat details.
      */
-    public func getChatDetailsById(_ channelId: Int, completion: ((_ endpoints: [String]?, _ authKey: String?, _ error: MixerRequestError?) -> Void)?) {
+    public func getChatDetailsById(_ channelId: Int,
+                                   completion: ((_ endpoints: [String]?, _ authKey: String?, _ error: MixerRequestError?) -> Void)?) {
         // TODO: Create a helper class to store all details retrieved with this method
         
-        MixerRequest.request("/chats/\(channelId)", options: [.cookieAuth]) { (json, error) in
+        MixerRequest.request("/chats/\(channelId)", options: [.bearerAuth]) { (json, error) in
             guard let json = json else {
                 completion?(nil, nil, error)
                 return

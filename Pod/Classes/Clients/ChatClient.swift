@@ -41,12 +41,12 @@ public class ChatClient: WebSocketAdvancedDelegate {
     
      :param: channelId The id of the channel being connected to.
      */
-    public func joinChannel(_ channelId: Int) {
+    public func joinChannel(_ channelId: Int, onError: @escaping ((Error?) -> Void)) {
         self.channelId = channelId
         
         MixerClient.sharedClient.chat.getChatDetailsById(channelId) { (endpoints, authKey, error) in
             guard let endpoints = endpoints else {
-                print("channel details did not return endpoints or authkey")
+                onError(MixerRequestError.unknown(data: nil))
                 return
             }
             

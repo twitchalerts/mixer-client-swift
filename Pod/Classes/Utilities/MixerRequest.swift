@@ -133,6 +133,10 @@ public class MixerRequest {
             for (header, val) in cookieHeaders {
                 request.addValue(val, forHTTPHeaderField: header)
             }
+        } else if options.contains(.bearerAuth) {
+            if let bearer = MixerUserDefaults.standard.string(forKey: "Bearer") {
+                request.addValue("Bearer \(bearer)", forHTTPHeaderField: "Authorization")
+            }
         } else if !options.contains(.noAuth) {
             if let jwt = MixerUserDefaults.standard.string(forKey: "JWT") {
                 request.addValue("JWT \(jwt)", forHTTPHeaderField: "Authorization")

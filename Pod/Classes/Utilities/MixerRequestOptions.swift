@@ -27,4 +27,6 @@ public struct MixerRequestOptions: OptionSet {
     
     // Request may need a CSRF token
     public static let mayNeedCSRF = MixerRequestOptions(rawValue: 1 << 4)
+    
+    public static let bearerAuth = MixerRequestOptions(rawValue: 1 << 5)
 }
